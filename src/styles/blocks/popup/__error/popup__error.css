@@ -1,0 +1,17 @@
+.popup__error {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: #FF0000;
+    width: 358px;
+    min-height: 30px;
+    margin: -25px auto 0;
+    padding: 0;
+    opacity: 0;
+}
+
+@media screen and (max-width: 540px) {
+    .popup__error {
+        max-width: 238px;
+    }
+}
