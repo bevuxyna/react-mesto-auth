@@ -9,9 +9,10 @@ import ProtectedRoute from "./ProtectedRoute";
 import Register from "./Register";
 import Login from "./Login";
 import api from "../utils/Api";
+import * as auth from '../utils/auth.js';
 import React, {useState, useEffect} from "react";
 import {CurrentUserContext} from "../contexts/CurrentUserContext";
-import {Switch, Route} from "react-router-dom";
+import {Switch, Route, Redirect, useHistory} from "react-router-dom";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -21,17 +22,39 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [userEmail, setUserEmail] = useState('');
+  const history = useHistory();
+
+  function tokenCheck() {
+      const token = localStorage.getItem("jwt");
+      if (token) {
+          auth.checkToken(token)
+              .then((res) => {
+                  if (res.data) {
+                      setUserEmail(res.data.email);
+                      setLoggedIn(true);
+                  }
+              })
+              .catch(err => console.log(err));
+      }
+  }
 
   useEffect(() => {
-      Promise.all([api.getUserInfo(), api.getInitialCards()])
-            .then(([userData, cardsData]) => {
-                setCurrentUser(userData);
-                setCards(cardsData);
-            })
-            .catch((err) => {
-                console.log(`Ошибка ${err}`);
-            })
-  }, [])
+       tokenCheck();
+  }, []);
+
+  useEffect(() => {
+      if (loggedIn) {
+          Promise.all([api.getUserInfo(), api.getInitialCards()])
+              .then(([userData, cardsData]) => {
+                  setCurrentUser(userData);
+                  setCards(cardsData);
+              })
+              .catch((err) => {
+                  console.log(`Ошибка ${err}`);
+              })
+      }
+  }, [loggedIn]);
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
@@ -73,7 +96,6 @@ function App() {
       document.addEventListener("keydown", handleEscClose);
       return () => document.removeEventListener("keydown", handleEscClose);
   }, []);
-
 
   function handleUpdateUser(data) {
         api.updateUserInfo(data)
@@ -139,6 +161,32 @@ function App() {
           })
   }
 
+  function handleRegister(registerData) {
+      auth.register(registerData)
+          .then(() => {
+              history.push("/sign-in");
+          })
+          .catch((err) => {
+              console.log(err);
+          });
+  }
+
+  function handleLogin(loginData) {
+      auth.authorize(loginData)
+          .then((res) => {
+              if (res.token) {
+                  setLoggedIn(true);
+                  localStorage.setItem('jwt', res.token);
+                  history.push('/');
+              }
+          })
+          .catch((err) => {
+              console.log(err);
+          })
+    }
+
+
+
   return (
       <CurrentUserContext.Provider value={currentUser}>
           <div className="page__container">
@@ -160,9 +208,15 @@ function App() {
                       />
 
                       <Route path="/sign-up">
-                          <Register
+                          <Register onRegister={handleRegister} />
+                      </Route>
 
-                          />
+                      <Route path="/sign-in">
+                          <Login onLogin={handleLogin} />
+                      </Route>
+
+                      <Route>
+                          {loggedIn ? <Redirect to="/"/> : <Redirect to="/sign-in"/>}
                       </Route>
 
                   </Switch>

@@ -1,26 +1,22 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
 
-function Register({onRegister}) {
-    const [state, setState] = useState({
+function Register(props) {
+    const [userData, setUserData] = useState({
         email: '',
         password: '',
     });
 
     const handleChange = (evt) => {
         const {name, value} = evt.target;
-        setState((state) => ({
-            ...state,
-            [name]: value,
-        }));
+        setUserData({
+            ...userData, [name]: value
+        });
     }
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        const {email, password} = state;
-        if (onRegister && email && password) {
-            onRegister(email, password)
-        }
+        props.onRegister(userData);
     }
 
         return(
@@ -33,7 +29,7 @@ function Register({onRegister}) {
                             name="email"
                             type="email"
                             id="email"
-                            value={state.email}
+                            value={userData.email}
                             onChange={handleChange}
                             placeholder="Email"
                             required
@@ -44,7 +40,7 @@ function Register({onRegister}) {
                             name="password"
                             type="password"
                             id="password"
-                            value={state.password}
+                            value={userData.password}
                             onChange={handleChange}
                             placeholder="Пароль"
                             required
@@ -53,7 +49,6 @@ function Register({onRegister}) {
                         <button
                             className="form__button-submit form__button-submit_type_register"
                             type="submit"
-                            onSubmit={handleSubmit}
                         >
                             Зарегистрироваться
                         </button>

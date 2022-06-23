@@ -1,5 +1,6 @@
 .elements {
     margin: 50px auto 66px;
+    min-height: 366px;
 }
 
 @media screen and (max-width: 920px) {
