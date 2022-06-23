@@ -14,6 +14,8 @@ import * as auth from '../utils/auth.js';
 import React, {useState, useEffect} from "react";
 import {CurrentUserContext} from "../contexts/CurrentUserContext";
 import {Switch, Route, Redirect, useHistory} from "react-router-dom";
+import imageError from '../styles/images/image_error.svg';
+import imageSuccess from '../styles/images/image_success.svg';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -24,8 +26,13 @@ function App() {
   const [cards, setCards] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [userEmail, setUserEmail] = useState('');
+  const [infoTooltipOpen, setInfoTooltipOpen] = useState(false);
+  const [infoTooltipImage, setInfoTooltipImage] = useState(imageSuccess);
+  const [message, setMessage] = useState('');
+
   const history = useHistory();
 
+  //проверка наличия у пользователя токена
   function tokenCheck() {
       const token = localStorage.getItem("jwt");
       if (token) {
@@ -33,10 +40,13 @@ function App() {
               .then((res) => {
                   if (res.data) {
                       setUserEmail(res.data.email);
+                      //Авторизуем пользователя
                       setLoggedIn(true);
                   }
               })
-              .catch(err => console.log(err));
+              .catch((err) => {
+                  console.log(`Ошибка ${err}`);
+              })
       }
   }
 
@@ -77,6 +87,7 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setInfoTooltipOpen(false);
     setSelectedCard({});
   };
 
@@ -162,27 +173,42 @@ function App() {
           })
   }
 
+  //Регистрация пользователя
   function handleRegister(registerData) {
       auth.register(registerData)
           .then(() => {
+              //Попап успешной регистрации
+              setInfoTooltipImage(imageSuccess);
+              setMessage('Вы успешно зарегистрировались!');
+              setInfoTooltipOpen(true);
+
+              //Переадресация пользователя на страницу входа
               history.push("/sign-in");
           })
           .catch((err) => {
-              console.log(err);
+              console.log(`Ошибка ${err}`);
           });
   }
 
+  //Вход пользователя
   function handleLogin(loginData) {
       auth.authorize(loginData)
           .then((res) => {
               if (res.token) {
                   setLoggedIn(true);
                   localStorage.setItem('jwt', res.token);
+
+                  //Переадресация пользователя на основную страницу со всей функциональностью приложения
                   history.push('/');
               }
           })
           .catch((err) => {
-              console.log(err);
+              //Попап ошибки входа
+              setInfoTooltipImage(imageError);
+              setMessage('Что-то пошло не так! Попробуйте ещё раз.');
+              setInfoTooltipOpen(true);
+
+              console.log(`Ошибка ${err}`);
           })
   }
 
@@ -191,7 +217,6 @@ function App() {
       localStorage.removeItem('jwt');
       setLoggedIn(false);
   }
-
 
 
   return (
@@ -218,11 +243,11 @@ function App() {
                         loggedIn={loggedIn}
                       />
 
-                      <Route path="/sign-up">
+                      <Route exact path="/sign-up">
                           <Register onRegister={handleRegister} />
                       </Route>
 
-                      <Route path="/sign-in">
+                      <Route exact path="/sign-in">
                           <Login onLogin={handleLogin} />
                       </Route>
 
@@ -232,7 +257,6 @@ function App() {
                       </Route>
 
                   </Switch>
-
 
                   <Footer />
 
@@ -262,6 +286,14 @@ function App() {
                       onClose={closeAllPopups}
                       onOverlayClose={handleOverlayClose}
                   />
+
+                  <InfoTooltip
+                      isOpen={infoTooltipOpen}
+                      onClose={closeAllPopups}
+                      image={infoTooltipImage}
+                      message={message}
+                  />
+
               </div>
           </div>
       </CurrentUserContext.Provider>
