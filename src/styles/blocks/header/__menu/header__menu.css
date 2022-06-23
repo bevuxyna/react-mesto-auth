@@ -1,0 +1,5 @@
+.header__menu {
+
+    display: flex;
+    flex-direction: row;
+}

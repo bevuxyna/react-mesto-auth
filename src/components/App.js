@@ -8,6 +8,7 @@ import AddPlacePopup from "./AddPlacePopup";
 import ProtectedRoute from "./ProtectedRoute";
 import Register from "./Register";
 import Login from "./Login";
+import InfoTooltip from "./InfoTooltip";
 import api from "../utils/Api";
 import * as auth from '../utils/auth.js';
 import React, {useState, useEffect} from "react";
@@ -183,7 +184,13 @@ function App() {
           .catch((err) => {
               console.log(err);
           })
-    }
+  }
+
+  //Выход из системы, удаляем JWT-токен из localStorage
+  function handleSignOut() {
+      localStorage.removeItem('jwt');
+      setLoggedIn(false);
+  }
 
 
 
@@ -191,7 +198,11 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
           <div className="page__container">
               <div className="page">
-                  <Header />
+                  <Header
+                      loggedIn={loggedIn}
+                      userEmail={userEmail}
+                      onSignOut={handleSignOut}
+                  />
 
                   <Switch>
                       <ProtectedRoute
@@ -215,6 +226,7 @@ function App() {
                           <Login onLogin={handleLogin} />
                       </Route>
 
+                      //Переадресация неавторизованного пользователя на страницу авторизации
                       <Route>
                           {loggedIn ? <Redirect to="/"/> : <Redirect to="/sign-in"/>}
                       </Route>
