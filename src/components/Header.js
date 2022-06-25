@@ -6,7 +6,7 @@ import logo from '../styles/images/logo_mesto.svg';
 function Header(props) {
     return (
         <header className="header">
-            <img src={logo} alt="Логотип MESTO RUSSIA" className="header__logo" />
+            <img src={logo} alt="Логотип MESTO RUSSIA" className="header__logo"/>
 
             {!props.loggedIn &&
                 <>

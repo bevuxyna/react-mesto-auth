@@ -4,7 +4,7 @@ export class Api {
         this._headers = options.headers;
     }
 
-    _checkServerResponse(res){
+    _checkServerResponse(res) {
         //Проверка ответа сервера
         if (res.ok) {
             return res.json();

@@ -1,10 +1,12 @@
 import React from 'react';
+import Popup from "./Popup";
 
 function PopupWithForm(props) {
     return (
-        <div
+        <Popup
             className={`popup popup_type_${props.name} ${props.isOpen && 'popup_opened'}`}
-            onClick={props.onOverlayClose}>
+            onClose={props.onClose}
+        >
             <div className="popup__container">
                 <button
                     type="button"
@@ -23,7 +25,7 @@ function PopupWithForm(props) {
                     >{props.buttonText}</button>
                 </form>
             </div>
-        </div>
+        </Popup>
     )
 }
 

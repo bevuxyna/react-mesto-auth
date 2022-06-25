@@ -10,7 +10,7 @@ function Main(props) {
             <section className="profile">
                 <div className="profile__content">
                     <img src={currentUser.avatar} alt="Аватар"
-                         className="profile__avatar" />
+                         className="profile__avatar"/>
                     <button
                         type="button"
                         className="profile__edit-avatar-button"

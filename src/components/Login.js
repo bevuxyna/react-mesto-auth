@@ -16,10 +16,10 @@ function Login(props) {
     const handleSubmit = (evt) => {
         evt.preventDefault();
         props.onLogin(userData);
-        setUserData({ email: '', password: '' });
+        setUserData({email: '', password: ''});
     }
 
-    return(
+    return (
         <div className="form__container">
             <div className="form__block">
                 <h2 className="form__title">Вход</h2>
