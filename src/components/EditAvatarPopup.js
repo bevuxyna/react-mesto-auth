@@ -27,7 +27,6 @@ function EditAvatarPopup(props) {
             onClose={props.onClose}
             buttonText='Сохранить'
             onSubmit={handleSubmit}
-            onOverlayClose={props.onOverlayClose}
         >
             <input
                 type="url"
@@ -36,7 +35,7 @@ function EditAvatarPopup(props) {
                 placeholder="Ссылка на картинку"
                 className="popup__input popup__input_type_avatar"
                 id="avatar-link"
-                ref={avatarRef} />
+                ref={avatarRef}/>
             <span className="popup__error avatar-link-error"></span>
         </PopupWithForm>
     )

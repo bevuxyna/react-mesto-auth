@@ -2,11 +2,11 @@ import React, {useState, useEffect} from 'react';
 import PopupWithForm from "./PopupWithForm";
 
 function AddPlacePopup(props) {
-    const [formInputValues, setFormInputValues] = useState({ name: "", link: "" });
+    const [formInputValues, setFormInputValues] = useState({name: "", link: ""});
 
     const handleChange = (evt) => {
         const {name, value} = evt.target;
-        setFormInputValues(prevState => ({ ...prevState, [name]: value }));
+        setFormInputValues(prevState => ({...prevState, [name]: value}));
     }
 
     function handleSubmit(e) {
@@ -38,7 +38,7 @@ function AddPlacePopup(props) {
                 minLength="2"
                 maxLength="30"
                 value={formInputValues.name}
-                onChange={handleChange} />
+                onChange={handleChange}/>
             <span className="popup__error place-error"></span>
             <input
                 type="url"
@@ -48,7 +48,7 @@ function AddPlacePopup(props) {
                 className="popup__input popup__input_type_link"
                 id="link"
                 value={formInputValues.link}
-                onChange={handleChange} />
+                onChange={handleChange}/>
             <span className="popup__error link-error"></span>
         </PopupWithForm>
     )

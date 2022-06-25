@@ -42,7 +42,6 @@ function EditProfilePopup(props) {
             onClose={props.onClose}
             buttonText='Сохранить'
             onSubmit={handleSubmit}
-            onOverlayClose={props.onOverlayClose}
         >
             <input
                 type="text"
@@ -54,7 +53,7 @@ function EditProfilePopup(props) {
                 minLength="2"
                 maxLength="40"
                 value={name || ''}
-                onChange={handleNameChange} />
+                onChange={handleNameChange}/>
             <span className="popup__error name-error"></span>
             <input
                 type="text"
@@ -66,7 +65,7 @@ function EditProfilePopup(props) {
                 minLength="2"
                 maxLength="200"
                 value={description || ''}
-                onChange={handleDescriptionChange} />
+                onChange={handleDescriptionChange}/>
             <span className="popup__error about-error"></span>
         </PopupWithForm>
     )
