@@ -54,9 +54,9 @@ function Register(props) {
                         </button>
                     </form>
 
-                    <div className="form__signin_block">
-                        <p className="form__signin_text">Уже зарегистрированы? </p>
-                        <Link className="form__signin_link" to="/sign-in" >Войти</Link>
+                    <div className="form__signin-block">
+                        <p className="form__signin-text">Уже зарегистрированы? </p>
+                        <Link className="form__signin-link" to="/sign-in" >Войти</Link>
                     </div>
             </div>
             </div>

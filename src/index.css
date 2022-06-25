@@ -76,6 +76,6 @@
 @import url(./styles/blocks/form/__title/form__title.css);
 @import url(./styles/blocks/form/__input/form__input.css);
 @import url(./styles/blocks/form/__button-submit/form__button-submit.css);
-@import url(./styles/blocks/form/__signin_block/form__signin_block.css);
-@import url(./styles/blocks/form/__signin_text/form__signin_text.css);
-@import url(./styles/blocks/form/__signin_link/form__signin_link.css);
+@import url(styles/blocks/form/__signin_block/form__signin-block.css);
+@import url(styles/blocks/form/__signin_text/form__signin-text.css);
+@import url(styles/blocks/form/__signin_link/form__signin-link.css);
