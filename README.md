@@ -14,4 +14,4 @@ Mesto - сервис для размещения фотографий.
 - React JS
 
 Ссылка на проект:
-bevuxyna.github.io/react-mesto-auth/
+https://bevuxyna.github.io/react-mesto-auth/
