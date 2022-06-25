@@ -42,6 +42,11 @@ function App() {
                       setUserEmail(res.data.email);
                       //Авторизуем пользователя
                       setLoggedIn(true);
+
+                      //Переадресация пользователя на основную страницу со всей функциональностью приложения
+                      //history.push('/');
+
+                      console.log(res.data.email);
                   }
               })
               .catch((err) => {
@@ -183,9 +188,14 @@ function App() {
               setInfoTooltipOpen(true);
 
               //Переадресация пользователя на страницу входа
-              history.push("/sign-in");
+              history.push('/sign-in');
           })
           .catch((err) => {
+              //Попап ошибки регистрации
+              setInfoTooltipImage(imageError);
+              setMessage('Что-то пошло не так! Попробуйте ещё раз.');
+              setInfoTooltipOpen(true);
+
               console.log(`Ошибка ${err}`);
           });
   }
