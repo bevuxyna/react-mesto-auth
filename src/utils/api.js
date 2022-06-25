@@ -18,7 +18,7 @@ export class Api {
         return fetch(`${this._url}/users/me`, {
             headers: this._headers
         })
-            .then((res) => this._checkServerResponse(res));
+            .then(this._checkServerResponse);
     }
 
     //Обновление аватара пользователя
@@ -30,7 +30,7 @@ export class Api {
                 avatar: data.avatar
             })
         })
-            .then((res) => this._checkServerResponse(res));
+            .then(this._checkServerResponse);
     }
 
     //Редактирование профиля
@@ -43,7 +43,7 @@ export class Api {
                 about: data.about
             })
         })
-            .then((res) => this._checkServerResponse(res));
+            .then(this._checkServerResponse);
     }
 
     //Загрузка карточек с сервера
@@ -51,7 +51,7 @@ export class Api {
         return fetch(`${this._url}/cards`, {
             headers: this._headers
         })
-            .then((res) => this._checkServerResponse(res));
+            .then(this._checkServerResponse);
     }
 
     //Добавление новой карточки
@@ -64,7 +64,7 @@ export class Api {
                 link: data.link
             })
         })
-            .then((res) => this._checkServerResponse(res));
+            .then(this._checkServerResponse);
     }
 
     //Удаление карточки
@@ -73,7 +73,7 @@ export class Api {
             method: 'DELETE',
             headers: this._headers
         })
-            .then((res) => this._checkServerResponse(res));
+            .then(this._checkServerResponse);
     }
 
     //Постановка лайка
@@ -82,7 +82,7 @@ export class Api {
             method: 'PUT',
             headers: this._headers
         })
-            .then((res) => this._checkServerResponse(res));
+            .then(this._checkServerResponse);
     }
 
     //Снятие лайка
@@ -91,7 +91,7 @@ export class Api {
             method: 'DELETE',
             headers: this._headers
         })
-            .then((res) => this._checkServerResponse(res));
+            .then(this._checkServerResponse);
     }
 
     changeLikeCardStatus(cardId, isLiked) {
