@@ -2,34 +2,25 @@ import React, {useState, useEffect} from 'react';
 import PopupWithForm from "./PopupWithForm";
 
 function AddPlacePopup(props) {
-    const [name, setName] = useState('');
-    const [link, setLink] = useState('');
+    const [formInputValues, setFormInputValues] = useState({ name: "", link: "" });
 
-    const handleCardName = (evt) => {
-        setName(evt.target.value);
-    }
-
-    const handleCardLink = (evt) => {
-        setLink(evt.target.value);
+    const handleChange = (evt) => {
+        const {name, value} = evt.target;
+        setFormInputValues(prevState => ({ ...prevState, [name]: value }));
     }
 
     function handleSubmit(e) {
         e.preventDefault();
-
-        props.onAddPlace({
-            name,
-            link: link
-        })
+        props.onAddPlace(formInputValues);
     }
 
     useEffect(() => {
-        setName('');
-        setLink('');
+        setFormInputValues({name: "", link: ""});
     }, [props.isOpen])
 
     return (
         <PopupWithForm
-            name={'add'}
+            name='add'
             title='Новое место'
             isOpen={props.isOpen}
             onClose={props.onClose}
@@ -46,8 +37,8 @@ function AddPlacePopup(props) {
                 id="place"
                 minLength="2"
                 maxLength="30"
-                value={name}
-                onChange={handleCardName} />
+                value={formInputValues.name}
+                onChange={handleChange} />
             <span className="popup__error place-error"></span>
             <input
                 type="url"
@@ -56,8 +47,8 @@ function AddPlacePopup(props) {
                 placeholder="Ссылка на картинку"
                 className="popup__input popup__input_type_link"
                 id="link"
-                value={link}
-                onChange={handleCardLink} />
+                value={formInputValues.link}
+                onChange={handleChange} />
             <span className="popup__error link-error"></span>
         </PopupWithForm>
     )
