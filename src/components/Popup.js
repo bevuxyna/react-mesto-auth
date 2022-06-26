@@ -1,18 +1,18 @@
 import React, {useEffect, useRef} from "react";
 
-function Popup(props) {
+function Popup({onClose, className, children}) {
     const popup = useRef(null);
 
     function handleOverlayClose(evt) {
         if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__button-close')) {
-            props.onClose();
+            onClose();
         }
     }
 
     //закрытие попапов по Esc
     function handleEscClose(evt) {
         if (evt.key === 'Escape') {
-            props.onClose();
+            onClose();
         }
     }
 
@@ -26,8 +26,8 @@ function Popup(props) {
     }, []);
 
     return (
-        <div className={props.className} ref={popup}>
-            {props.children}
+        <div className={className} ref={popup}>
+            {children}
         </div>
     )
 }

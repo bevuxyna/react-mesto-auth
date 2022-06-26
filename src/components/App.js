@@ -1,3 +1,5 @@
+import React, {useState, useEffect} from "react";
+import {Switch, Route, Redirect, useHistory} from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import Main from "./Main";
@@ -9,11 +11,9 @@ import ProtectedRoute from "./ProtectedRoute";
 import Register from "./Register";
 import Login from "./Login";
 import InfoTooltip from "./InfoTooltip";
+import {CurrentUserContext} from "../contexts/CurrentUserContext";
 import api from "../utils/api";
 import * as auth from '../utils/auth.js';
-import React, {useState, useEffect} from "react";
-import {CurrentUserContext} from "../contexts/CurrentUserContext";
-import {Switch, Route, Redirect, useHistory} from "react-router-dom";
 import imageError from '../styles/images/image_error.svg';
 import imageSuccess from '../styles/images/image_success.svg';
 

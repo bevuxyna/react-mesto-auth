@@ -1,22 +1,22 @@
 import React from 'react';
 
-function InfoTooltip(props) {
+function InfoTooltip({isOpen, image, onClose, message}) {
 
     return (
         <div
-            className={`popup ${props.isOpen && 'popup_opened'}`}>
+            className={`popup ${isOpen && 'popup_opened'}`}>
             <div className="popup__container">
                 <img
                     className="popup__info-image"
                     alt="Картинка"
-                    src={props.image}/>
+                    src={image}/>
 
-                <p className="popup__info-text">{props.message}</p>
+                <p className="popup__info-text">{message}</p>
 
                 <button
                     type="button"
                     className="popup__button-close"
-                    onClick={props.onClose}>
+                    onClick={onClose}>
                 </button>
             </div>
         </div>

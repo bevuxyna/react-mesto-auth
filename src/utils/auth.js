@@ -15,7 +15,7 @@ export const register = ({password, email}) => {
         },
         body: JSON.stringify({password, email})
     })
-        .then((res) => checkServerResponse(res))
+        .then(checkServerResponse)
 };
 export const authorize = ({password, email}) => {
     return fetch(`${BASE_URL}/signin`, {
@@ -26,7 +26,7 @@ export const authorize = ({password, email}) => {
         },
         body: JSON.stringify({password, email})
     })
-        .then((res) => checkServerResponse(res))
+        .then(checkServerResponse)
 };
 
 export const checkToken = (token) => {
@@ -38,5 +38,5 @@ export const checkToken = (token) => {
             'Authorization': `Bearer ${token}`,
         }
     })
-        .then((res) => checkServerResponse(res))
+        .then(checkServerResponse)
 }

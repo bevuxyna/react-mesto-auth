@@ -2,19 +2,19 @@ import React, {useContext, useEffect, useRef} from 'react';
 import PopupWithForm from "./PopupWithForm";
 import {CurrentUserContext} from "../contexts/CurrentUserContext";
 
-function EditAvatarPopup(props) {
+function EditAvatarPopup({isOpen, onClose, onUpdateAvatar}) {
     const currentUser = useContext(CurrentUserContext);
     const avatarRef = useRef();
 
     //используем реф, чтобы получить прямой доступ к DOM-элементу инпута и его значению
     useEffect(() => {
         avatarRef.current.value = '';
-    }, [currentUser, props.isOpen])
+    }, [currentUser, isOpen])
 
     function handleSubmit(e) {
         e.preventDefault();
 
-        props.onUpdateAvatar({
+        onUpdateAvatar({
             avatar: avatarRef.current.value,
         });
     }
@@ -23,8 +23,8 @@ function EditAvatarPopup(props) {
         <PopupWithForm
             name={'avatar'}
             title='Обновить аватар'
-            isOpen={props.isOpen}
-            onClose={props.onClose}
+            isOpen={isOpen}
+            onClose={onClose}
             buttonText='Сохранить'
             onSubmit={handleSubmit}
         >
