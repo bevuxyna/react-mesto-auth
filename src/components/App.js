@@ -187,6 +187,7 @@ function App() {
                 if (res.token) {
                     setLoggedIn(true);
                     localStorage.setItem('jwt', res.token);
+                    tokenCheck();
 
                     //Переадресация пользователя на основную страницу со всей функциональностью приложения
                     history.push('/');
