@@ -20,7 +20,7 @@
     "eject": "react-scripts eject",
     "serve": "serve -s build",
     "predeploy": "npm run build",
-    "deploy": "npm run build && scp -r ./build/* bevuxyna@51.250.94.37:/home/bevuxyna/mesto-frontend"
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
